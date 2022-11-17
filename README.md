@@ -90,11 +90,14 @@ tests/unit/test_classification_response.py::test_response_parametrize[1-2-3-4-vi
 ====================================================================================== 2 passed in 1.45s ======================================================================================
 ```
 
-## Run FastAPI
-Run next command to start the api locally
-
+## Build Docker image
+* Run next command to build de docker image with the app.
 ```
-uvicorn src.main:app --port 5000 --reload
+docker run -d --name app -p 3000:3000 myimage
+```
+* Then, run this comand to run the image in a container.
+```
+docker run -d --name app -p 3000:3000 myimage
 ```
 ## Test request
 The input is a JSON with the following fields:
