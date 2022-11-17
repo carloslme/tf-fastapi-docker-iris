@@ -89,3 +89,25 @@ tests/unit/test_classification_response.py::test_response_parametrize[1-2-3-4-vi
 
 ====================================================================================== 2 passed in 1.45s ======================================================================================
 ```
+
+## Run FastAPI
+Run next command to start the api locally
+
+```
+uvicorn src.main:app --port 5000 --reload
+```
+## Test request
+The input is a JSON with the following fields:
+
+* sepal_l
+* sepal_w
+* petal_l
+* petal_w
+
+Corresponding values are the measurements in cm.
+
+Example request:
+
+```
+curl 'http://localhost:8080/iris/classify_iris' -X POST -H 'Content-Type: application/json' -d '{"sepal_l": 5, "sepal_w": 2, "petal_l": 3, "petal_w": 4}'
+```
