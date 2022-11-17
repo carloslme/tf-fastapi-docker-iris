@@ -1,8 +1,25 @@
 from fastapi import FastAPI
 from starlette.responses import JSONResponse
+import logging
 
 from src.classifier.iris_classifier import IrisClassifier
-from models import Iris
+from src.models import Iris
+
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+formatter = logging.Formatter("%(levelname)s: %(asctime)s|%(name)s|%(message)s")
+
+file_handler = logging.FileHandler("server.log")
+file_handler.setFormatter(formatter)
+
+stream_handler = logging.StreamHandler()
+stream_handler.setFormatter(formatter)
+
+logger.addHandler(file_handler)
+logger.addHandler(stream_handler)  # Se agrega handler para stream
+
 
 app = FastAPI()
 iris_classifier = IrisClassifier()

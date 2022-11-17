@@ -8,8 +8,8 @@ import pytest
 path_root = Path(__file__).parents[2]
 sys.path.append(str(path_root))
 
-from src.classifier.iris_classifier import IrisClassifier
-from src.models import Iris
+from server.src.classifier.iris_classifier import IrisClassifier
+from server.src.models import Iris
 
 
 def get_test_response_data() -> list:
