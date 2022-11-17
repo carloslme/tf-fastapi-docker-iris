@@ -10,6 +10,7 @@ sys.path.append(str(path_root_1))
 sys.path.append(str(path_root_2))
 
 from iris_classifier import IrisClassifier
+from src.models import Iris
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -44,15 +45,14 @@ class PredictIris:
             _description_
         """
         classifier = IrisClassifier()
-
-        sepal_length = input_data[0]
-        sepal_width = input_data[1]
-        petal_length = input_data[2]
-        petal_width = input_data[3]
-
-        return classifier.classify_iris(
-            sepal_length, sepal_width, petal_length, petal_width
+        iris = Iris(
+            sepal_length=input_data[0],
+            sepal_width=input_data[1],
+            petal_length=input_data[2],
+            petal_width=input_data[3],
         )
+
+        return classifier.classify_iris(iris)
 
 
 if __name__ == "__main__":

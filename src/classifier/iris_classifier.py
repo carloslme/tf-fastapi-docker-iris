@@ -3,6 +3,7 @@ import logging
 from pathlib import Path
 import sys
 
+from src.models import Iris
 
 import numpy as np
 from sklearn.linear_model import LogisticRegression
@@ -48,29 +49,20 @@ class IrisClassifier:
         self.iris_type = {0: "setosa", 1: "versicolor", 2: "virginica"}
         logger.info("Iris types defined.")
 
-    def classify_iris(
-        self, sepal_length: int, sepal_width: int, petal_length: int, petal_width: int
-    ) -> dict:
+    def classify_iris(self, iris: Iris) -> dict:
         """Receive the incoming features and predict the iris classification.
 
         Parameters
         ----------
-        sepal_length : int
-            Sepal length
-        sepal_width : int
-            Sepal width
-        petal_length : int
-            Petal length
-        petal_width : int
-            Petal width
-
+        iris: Iris
+            Iris features sepal_length, sepal_width, petal_length, and petal_width.
         Returns
         -------
         dict
             Class and probability of the inference.
         """
-        X = [sepal_length, sepal_width, petal_length, petal_width]
-        self.model = self.load_model()
+        X = [iris.sepal_length, iris.sepal_width, iris.petal_length, iris.petal_width]
+
         logger.info("Iris model loaded.")
         prediction = self.model.predict_proba([X])
         result = {
@@ -80,9 +72,11 @@ class IrisClassifier:
 
         return result
 
-    def export_model(self):
+    def export_model(self) -> None:
+        """Export the model to a pickle file."""
         joblib.dump(self.clf, "src/models/iris_model.pkl")
         return True
 
-    def load_model(self):
-        return joblib.load("src/models/iris_model.pkl")
+    def load_model(self) -> None:
+        """Load the pickle model in memory."""
+        self.model = joblib.load("src/models/iris_model.pkl")

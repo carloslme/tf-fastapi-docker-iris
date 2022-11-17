@@ -9,6 +9,7 @@ path_root = Path(__file__).parents[2]
 sys.path.append(str(path_root))
 
 from src.classifier.iris_classifier import IrisClassifier
+from src.models import Iris
 
 
 def get_test_response_data() -> list:
@@ -27,13 +28,12 @@ def test_response_parametrize(
     type_flower: any,
     accuracy: any,
 ) -> None:
-
-    iris = IrisClassifier()
-    assert type(
-        iris.classify_iris(
-            sepal_length,
-            sepal_width,
-            petal_length,
-            petal_width,
-        )["class"]
-    ) == type(type_flower)
+    iris = Iris(
+        sepal_length=sepal_length,
+        sepal_width=sepal_width,
+        petal_length=petal_length,
+        petal_width=petal_width,
+    )
+    classifier = IrisClassifier()
+    classifier.load_model()
+    assert type(classifier.classify_iris(iris)["class"]) == type(type_flower)
